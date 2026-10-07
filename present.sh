@@ -222,6 +222,7 @@ case "$cmd" in
 
 	main)
 		guard
+		rm -f present.sh
 		git -c advice.detachedHead=false checkout -q main
 		echo "back on main"
 		;;
