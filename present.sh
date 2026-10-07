@@ -121,10 +121,14 @@ banner() {
 
 goto() {
 	guard
+	SELF=$(mktemp)
+	git show main:present.sh > "$SELF"
+	rm -f present.sh
 	git -c advice.detachedHead=false checkout -q "${SHAS[$1]}"
 	# The presentation script lives on main, not in the historical stages.
 	# Restore it after checkout so `present.sh next` still works.
-	git show main:present.sh > present.sh
+	cp "$SELF" present.sh
+	rm -f "$SELF"
 	banner "$1"
 }
 
